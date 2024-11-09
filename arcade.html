@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endless Runner Game with Side Images</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #e0f7fa;
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+    h1 {
+      color: #e91e63; /* Dark pink color */
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #game {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      background-color: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      border-top: 10px solid red;
+      border-bottom: 10px solid red;
+    }
+    #road {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      animation: roadAnimation 1s linear infinite;
+    }
+    .side-images {
+      position: absolute;
+      top: 130px;
+      width: 100px;
+      height: 100%;
+      background-image: url('https://keerthanapg.com/tech/self-driving-bets/source.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    #left-image {
+      left: 0;
+    }
+    #right-image {
+      right: 0;
+    }
+    #runner {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://media4.giphy.com/media/VycsUJNEkaugD4Hs5p/200w.gif');
+      background-size: cover;
+      transition: bottom 0.3s ease;
+    }
+    .obstacle {
+      position: absolute;
+      bottom: 20px;
+      width: 20px;
+      height: 20px;
+      animation: moveObstacle 3s linear infinite;
+    }
+    .fire {
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="50" height="50"%3E%3Cpath fill="%23FF5733" d="M32 0C16.536 0 16 16 16 16s4 12 4 16-4 8-4 8 0 16 16 16 16-16 16-16-4-8-4-8 4-8 4-16S47.464 0 32 0z"%3E%3C/path%3E%3C/svg%3E') no-repeat center center;
+      background-size: contain;
+    }
+    .dinosaur {
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="50" height="50"%3E%3Cpath fill="%23333333" d="M32 2C17.664 2 6 12.664 6 22c0 3.328 2.674 6 6 6h4v3h6v-3h8v3h6v-3h4c3.326 0 6-2.672 6-6 0-9.336-11.664-20-26-20zM18 30v6h-4v-6h4zM38 30v6h-4v-6h4zM32 42c-3.312 0-6 2.672-6 6s2.688 6 6 6 6-2.672 6-6-2.688-6-6-6z"%3E%3C/path%3E%3C/svg%3E') no-repeat center center;
+      background-size: contain;
+    }
+    @keyframes moveObstacle {
+      from {
+        right: -50px;
+      }
+      to {
+        right: 100vw;
+      }
+    }
+    @keyframes roadAnimation {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 30px 0;
+      }
+    }
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Through Every Obstacle, Make sure He Runs Towards Her, Driven by Love's Unstoppable Force</h1>
+  <div id="game">
+    <div id="right-image" class="side-images"></div>
+    <div id="runner"></div>
+    <div id="score">Score: 0</div>
+  </div>
+  <script>
+    const runner = document.getElementById("runner");
+    const game = document.getElementById("game");
+    const scoreDisplay = document.getElementById("score");
+    let score = 0;
+    let isJumping = false;
+    let jumpCount = 0;
+    let gameInterval;
+
+    function jump() {
+      if (jumpCount < 2 && !isJumping) {
+        isJumping = true;
+        jumpCount++;
+
+        if (jumpCount === 1) {
+          runner.style.bottom = "120px";
+          setTimeout(() => {
+            runner.style.bottom = "20px";
+          }, 400);
+        }
+
+        if (jumpCount === 2) {
+          setTimeout(() => {
+            runner.style.bottom = "160px";
+          }, 400);
+          setTimeout(() => {
+            runner.style.bottom = "20px";
+            isJumping = false;
+          }, 800);
+        }
+      }
+    }
+
+    runner.addEventListener("transitionend", () => {
+      if (runner.style.bottom === "20px") {
+        jumpCount = 0;
+        isJumping = false;
+      }
+    });
+
+    function createObstacle() {
+      const obstacle = document.createElement("div");
+      obstacle.classList.add("obstacle");
+
+      if (Math.random() < 0.5) {
+        obstacle.classList.add("fire");
+      } else {
+        obstacle.classList.add("dinosaur");
+      }
+
+      game.appendChild(obstacle);
+
+      const obstacleInterval = setInterval(() => {
+        const obstacleRect = obstacle.getBoundingClientRect();
+        const runnerRect = runner.getBoundingClientRect();
+
+        if (
+          runnerRect.right > obstacleRect.left &&
+          runnerRect.left < obstacleRect.right &&
+          runnerRect.bottom > obstacleRect.top &&
+          runnerRect.top < obstacleRect.bottom
+        ) {
+          alert("Game Over! Your score: " + score);
+          clearInterval(gameInterval);
+          clearInterval(obstacleInterval);
+          game.innerHTML = `<div id="score">Score: 0</div>`;
+          score = 0;
+        }
+
+        if (obstacleRect.right < 0) {
+          game.removeChild(obstacle);
+          clearInterval(obstacleInterval);
+        }
+      }, 20);
+    }
+
+    gameInterval = setInterval(() => {
+      score++;
+      scoreDisplay.innerText = `Score: ${score}`;
+      if (Math.random() < 0.1) {
+        createObstacle();
+      }
+    }, 300);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        jump();
+      }
+    });
+  </script>
+</body>
+</html>

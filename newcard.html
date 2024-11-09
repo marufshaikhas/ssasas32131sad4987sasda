@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wedding game invitation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .card h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #ff4081;
+        }
+        .card h2 {
+            color: pink;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .date {
+            font-size: 1.2em;
+            margin: 15px 0;
+            color: #555;
+        }
+        .venue {
+            font-size: 1.3em;
+            margin: 15px 0;
+            color: #4CAF50;
+            animation: zoom 1.5s infinite alternate;
+        }
+        @keyframes zoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        .game-area {
+            border: 2px dashed #ff4081;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+            background-size: cover;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #score {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Make every beat of my their heart, fall deeper into their love</h1>
+        <h2>:SHAHNAWAZ AND SHAHURA</h2>
+        <p class="date">Date: 19th December 2024</p>
+        <p class="venue">No Gifts, Only Blessings</p>
+        <div class="game-area" id="gameArea"></div>
+        <button class="button" id="startButton">Start Game</button>
+        <div id="score">Score: 0</div>
+    </div>
+    <script>
+        let score = 0;
+        let gameInterval;
+        let isGameRunning = false;
+
+        document.getElementById('startButton').onclick = function() {
+            if (isGameRunning) return; // Prevent multiple game starts
+            score = 0;
+            document.getElementById('score').innerText = "Score: " + score;
+            startGame();
+        };
+
+        function startGame() {
+            isGameRunning = true;
+            document.getElementById('gameArea').innerHTML = ''; // Clear previous hearts
+            gameInterval = setInterval(createHeart, 1500); // Lower heart creation speed
+            setTimeout(endGame, 30000); // End game after 30 seconds
+        }
+
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            alert("Game Over! Final Score: " + score);
+        }
+
+        function createHeart() {
+            const gameArea = document.getElementById('gameArea');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * (gameArea.clientWidth - 30) + 'px';
+            heart.style.top = '0px';
+            gameArea.appendChild(heart);
+            fallHeart(heart);
+        }
+
+        function fallHeart(heart) {
+            let fallInterval = setInterval(() => {
+                if (!isGameRunning) { // Stop heart fall if game ended
+                    clearInterval(fallInterval);
+                    heart.remove();
+                    return;
+                }
+                let top = parseInt(heart.style.top);
+                if (top < 200) {
+                    heart.style.top = top + 2 + 'px'; // Slower fall speed
+                } else {
+                    clearInterval(fallInterval);
+                    heart.remove();
+                }
+            }, 20);
+
+            heart.onclick = function() {
+                if (isGameRunning) {
+                    score++;
+                    document.getElementById('score').innerText = "Score: " + score;
+                    heart.remove();
+                }
+            };
+        }
+    </script>
+</body>
+</html>

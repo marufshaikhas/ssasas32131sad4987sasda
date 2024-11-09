@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Website</title>
+    <style>
+        /* Hide the YouTube video but keep the audio playing */
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border: none;
+        }
+
+#game-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.game-images {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.game-images a {
+    display: block;
+    width: 32%; /* Adjust the width to control image size */
+}
+
+.game-images img {
+    width: 100%; /* Makes the image take up the full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    object-fit: cover; /* Ensures images cover the container without distortion */
+}
+
+
+        /* Apply background image to the whole body */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/944/181/272/flowers-branches-background-pink-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            height: 100vh;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #d5006e;  /* Dark Pink */
+            padding: 15px 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;  /* Increased font size */
+            letter-spacing: 1px; /* Slightly increased letter spacing for better readability */
+            border: 2px solid transparent;  /* Initially, no border */
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+            background-color: #ff69b4;
+            box-shadow: 0 0 10px 2px #ff69b4; /* Glowing border effect */
+            border-color: #ff69b4; /* Adding border color when hovered */
+        }
+
+        /* Intro Section Styling */
+        .intro-section {
+            text-align: center;
+            color: #fff;
+            padding: 80px 20px;
+            background-image: url('https://cdn.pixabay.com/photo/2018/02/11/04/22/frame-3145077_960_720.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 350px; /* Set a height for the section */
+            position: relative;  /* Required for absolute positioning of the text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .intro-section h1 {
+            color: #e42790;
+            font-family: 'Cursive', sans-serif;
+            font-size: 21px;
+            margin: 0;
+            position: absolute;
+            top: 207px; /* Positioning text above the heart */
+        }
+
+        .intro-section p {
+            color: #cc82b6;
+            font-size: 15px;
+            font-style: italic;
+            position: absolute;
+            bottom: 230px; /* Positioning text below the heart */
+        }
+
+        /* Button Centering */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff69b4;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #d5006e;
+        }
+
+        /* Section styling */
+        section {
+            background-color: #ffffff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff69b4;
+            font-size: 24px;
+            font-family: 'Georgia', serif;
+            margin-bottom: 20px;
+        }
+
+        .details-content {
+            background-color: #fce4ec;
+            color: #000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .details-content p {
+            margin-bottom: 10px;
+        }
+
+        .details-content .highlight {
+            font-weight: bold;
+            color: #d5006e;
+        }
+
+        /* Game Section */
+        #game-section {
+            background-color: #fce4ec;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .game-container {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#details">Details</a>
+        <a href="#contact">Contact</a>
+        <a href="#game">Game</a>
+    </nav>
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <h1>SHAHNAWAZ WEDs SHAHURA</h1>
+        <p>and two shall become one</p>
+    </div>
+
+    <div id="man" style="font-size: 60px; position: absolute; top: 60%; left: -1%; transform: translateY(-50%); transition: all 1s ease;">🧍‍♂️</div> <!-- Full-body man emoji -->
+    <div id="woman" style="font-size: 60px; position: absolute; top: 60%; right: -1%; transform: translateY(-50%); transition: all 1s ease;">🧍‍♀️</div> <!-- Full-body woman emoji -->
+    <div id="heart" style="visibility: hidden; font-size: 30px; position: absolute; top: 60%; left: 50%; transform: translateX(-50%);">❤️</div> <!-- Heart emoji (initially hidden) -->
+    
+    <!-- Centered Button -->
+    <div class="button-container">
+        <button onclick="moveEmojis()">Join these two married people together</button>
+    </div>
+
+    <script>
+        function moveEmojis() {
+            // Move the man and woman emojis closer together
+            document.getElementById("man").style.left = "35%";
+            document.getElementById("woman").style.right = "36%";
+            
+            // Make the heart emoji visible and move it closer to the man and woman
+            document.getElementById("heart").style.visibility = "visible";
+            document.getElementById("heart").style.top = "58%";  // Heart slightly higher to match the positioning
+        }
+    </script>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <section id="details">
+            <h2>Wedding Invitation</h2>
+            <div class="details-content">
+                <p><span class="highlight">In the name of Allah, the most beneficent & merciful</span></p>
+                <p><span class="highlight">Mr. Late Mohammed Shakeel Shaikh</span> Cordially requests your gracious presence on the auspicious occasion of the Wedding Ceremony of their beloved Son</p>
+
+                <p><span class="highlight">Mohammed Shahnawaz Shaikh</span> S/o. Late Mohammed Shakeel Shaikh</p>
+                <p>Weds</p>
+                <p><span class="highlight">Shahnura Khan</span> D/o. Shameem Ahmed Salim Khan</p>
+
+                <p><span class="highlight">Nikaah</span><br>On Tuesday, 17th December 2024 (16th Jumadil Aakhir 1446 H)<br>After Namaz-E-Maghrib</p>
+
+                <p><span class="highlight">Dawat-E-Walima</span><br>On Thursday, 19th December 2024 (18th Jumadil Aakhir 1446 H)<br>At: Kohinoor City Club, Next to Kohinoor Hotel,<br>Kirol Road, Kohinoor City, Kurla (W), Mumbai-70.</p>
+
+                <p>Timing : 7:30 pm to 11:00 pm</p>
+                <p>With joyous hearts, we invite you to celebrate the union of our hearts and lives.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            
+            <!-- Event Location Information -->
+            <p><strong>Event Location:</strong>
+                At: Kohinoor City Club, Next to Kohinoor Hotel, Kirol Road, Kohinoor City, Kurla (W), Mumbai-70.
+            </p>
+
+            <!-- Image Embed -->
+            <div style="max-width: 600px; margin: 20px auto;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2940.9358075379205!2d72.88305337520546!3d19.077700832127164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c888b56320db%3A0xb49e27a0a749e552!2sKohinoor%20Club!5e1!3m2!1sen!2sin!4v1731129841912!5m2!1sen!2sin" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <!-- Mrs. Naseem Bano and Contact Information -->
+            <div style="background-color: #f7e7e7; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center; color: #444;">
+                <p style="font-family: 'Cursive', sans-serif; font-size: 18px; color: #e42790; font-weight: bold;">From: Mrs. Naseem Bano</p>
+                <p style="font-family: 'Cursive', sans-serif; font-size: 18px; color: #e42790; font-weight: bold;">Late Mohammed Shakeel Shaikh</p>
+                <p style="font-size: 16px; color: #333; font-style: italic;">Contact: <span style="color: #ff69b4; font-weight: bold;">9137225602 / 9967797683</span></p>
+            </div>
+        </section>
+
+
+<!-- Game Section -->
+<section id="game-section">
+    <div class="section-title">
+        <h2>Wedding Game</h2>
+        <p class="subtitle">Timepass Until You Reach the Hall</p>
+    </div>
+    <!-- Game Images -->
+    <div class="game-images">
+        <a href="newcard.html">
+            <img src="C:/Users/admin/Desktop/WEDDING/img-20241109-672eef1968680.webp" alt="Game Image 1">
+        </a>
+        <a href="arcade.html">
+            <img src="C:/Users/admin/Desktop/WEDDING/img-202411091-672eef69e0a3d.webp" alt="Game Image 2">
+        </a>
+        <a href="sahoe.html">
+            <img src="C:/Users/admin/Desktop/WEDDING/img-202411092-672eef94b39c7.webp" alt="Game Image 3">
+        </a>
+    </div>
+</section>
+
+    <!-- Add the music -->
+    <audio id="background-music" autoplay loop>
+        <source src="https://www.jiosaavn.com/song/nashik-dhol-tasha/KgkhRSNoU2k" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+
+<!-- Music Control Button -->
+<div id="music-controls" style="position: fixed; top: 642px; left: -34px; z-index: 100;rotate: 90deg;">
+    <button onclick="toggleMusic()" style="color:#de3b58;">Pause Music</button>
+</div>
+
+<!-- YouTube Audio (Invisible Video) -->
+<iframe id="youtube-audio" src="https://www.youtube.com/embed/Tv3knbp6ftw?autoplay=1&loop=1&mute=0&controls=0&playlist=Tv3knbp6ftw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<footer>
+    <p style="color:#de3b58";>-------------------------------------------------------------- 🌹A successful marriage requires failing in love many times, always with the same person❤️</p>
+</footer>
+
+<script>
+// JavaScript function to toggle music playback
+function toggleMusic() {
+    var iframe = document.getElementById("youtube-audio");
+    var button = document.querySelector("#music-controls button");
+
+    // Toggle between play/pause
+    if (iframe.src.includes("autoplay=1")) {
+        iframe.src = iframe.src.replace("autoplay=1", "autoplay=0");
+        button.textContent = "Play Music"; // Update button text when music is paused
+    } else {
+        iframe.src = iframe.src.replace("autoplay=0", "autoplay=1");
+        button.textContent = "Pause Music"; // Update button text when music is playing
+    }
+}
+</script>
+
+</body>
+</html>
